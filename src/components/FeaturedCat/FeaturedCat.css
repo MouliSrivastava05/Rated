@@ -1,0 +1,15 @@
+.featured-categories ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .featured-categories li {
+    background-color: #f0f0f0;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: bold;
+  }
