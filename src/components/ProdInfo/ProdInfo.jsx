@@ -1,5 +1,6 @@
 import React from 'react';
- import './ProdInfo.css'
+import './ProdInfo.css'
+
 function ProdInfo({ product }) {
   return (
     <div className="prod-info">

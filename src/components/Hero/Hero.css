@@ -1,6 +1,6 @@
 
 .hero {
-    background: linear-gradient(to right, rgb(228, 189, 92), goldenrod);
+    background: linear-gradient(to right, goldenrod, #f5deb3, #daa520); 
     padding: 60px 20px;
     text-align: center;
     border-radius: 8px;

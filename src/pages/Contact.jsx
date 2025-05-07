@@ -22,13 +22,12 @@ const Contact = () => {
         <section className="map">
           <h2>Our Store Location</h2>
           <div className="map-embed">
-            {/* Placeholder until you integrate Google Places properly */}
             <iframe
               title="Google Maps"
               width="100%"
               height="300"
               loading="lazy"
-              src="https://www.google.com/maps/embed/v1/place?q=New+Delhi&key=YOUR_GOOGLE_API_KEY"
+              src="https://www.google.com/maps/embed/v1/place?q=New+Delhi&key=AIzaSyAhYE4g0Hxn1V_UjbK_KvB0UcFqfDeZPN8"
             ></iframe>
           </div>
         </section>

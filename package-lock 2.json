@@ -8,7 +8,6 @@
       "name": "rated",
       "version": "0.0.0",
       "dependencies": {
-        "fdir": "6.0.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-router-dom": "^6.30.0",
@@ -19,11 +18,9 @@
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
         "@vitejs/plugin-react": "^4.3.4",
-        "esbuild": "^0.25.4",
         "eslint": "^9.22.0",
         "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-react-refresh": "^0.4.19",
-        "fdir": "6.0.0",
         "globals": "^16.0.0",
         "vite": "^6.3.1"
       }
@@ -2252,13 +2249,13 @@
       "license": "MIT"
     },
     "node_modules/fdir": {
-      "version": "6.0.0",
-      "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.0.0.tgz",
-      "integrity": "sha512-OTY4oARmFlLhd6dMi3qWGW7MkSi5cRmorjwBp1X9SE51s61qkKspeTSPOSKzCNb/+gXkhayqQonMALkEEq/tqQ==",
+      "version": "6.4.4",
+      "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.4.4.tgz",
+      "integrity": "sha512-1NZP+GK4GfuAv3PqKvxQRDMjdSRZjnkq7KfhlNrCNNlZ0ygQFpebfrnfnq/W7fpUnAv9aGWmY1zKx7FYL3gwhg==",
       "dev": true,
       "license": "MIT",
       "peerDependencies": {
-        "picomatch": "2.x"
+        "picomatch": "^3 || ^4"
       },
       "peerDependenciesMeta": {
         "picomatch": {
@@ -2443,9 +2440,9 @@
       }
     },
     "node_modules/globals": {
-      "version": "16.1.0",
-      "resolved": "https://registry.npmjs.org/globals/-/globals-16.1.0.tgz",
-      "integrity": "sha512-aibexHNbb/jiUSObBgpHLj+sIuUmJnYcgXBlrfsiDZ9rt4aF2TFRbyLgZ2iFQuVZ1K5Mx3FVkbKRSgKrbK3K2g==",
+      "version": "16.0.0",
+      "resolved": "https://registry.npmjs.org/globals/-/globals-16.0.0.tgz",
+      "integrity": "sha512-iInW14XItCXET01CQFqudPOWP2jYMl7T+QRQT+UNcR/iQncN/F0UNpgd76iFkBPgNQb4+X3LV9tLJYzwh+Gl3A==",
       "dev": true,
       "license": "MIT",
       "engines": {
@@ -3544,21 +3541,6 @@
         "url": "https://github.com/sponsors/SuperchupuDev"
       }
     },
-    "node_modules/tinyglobby/node_modules/fdir": {
-      "version": "6.4.4",
-      "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.4.4.tgz",
-      "integrity": "sha512-1NZP+GK4GfuAv3PqKvxQRDMjdSRZjnkq7KfhlNrCNNlZ0ygQFpebfrnfnq/W7fpUnAv9aGWmY1zKx7FYL3gwhg==",
-      "dev": true,
-      "license": "MIT",
-      "peerDependencies": {
-        "picomatch": "^3 || ^4"
-      },
-      "peerDependenciesMeta": {
-        "picomatch": {
-          "optional": true
-        }
-      }
-    },
     "node_modules/toidentifier": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz",
@@ -3729,21 +3711,6 @@
           "optional": true
         },
         "yaml": {
-          "optional": true
-        }
-      }
-    },
-    "node_modules/vite/node_modules/fdir": {
-      "version": "6.4.4",
-      "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.4.4.tgz",
-      "integrity": "sha512-1NZP+GK4GfuAv3PqKvxQRDMjdSRZjnkq7KfhlNrCNNlZ0ygQFpebfrnfnq/W7fpUnAv9aGWmY1zKx7FYL3gwhg==",
-      "dev": true,
-      "license": "MIT",
-      "peerDependencies": {
-        "picomatch": "^3 || ^4"
-      },
-      "peerDependenciesMeta": {
-        "picomatch": {
           "optional": true
         }
       }

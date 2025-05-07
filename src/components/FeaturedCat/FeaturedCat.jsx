@@ -10,14 +10,14 @@ function FeaturedCategories() {
   }, []);
 
   return (
-    <section className="featured-categories">
+    <div className="featured-categories">
       <h2>Featured Categories</h2>
       <ul>
         {categories.map(cat => (
           <li key={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 }
 
