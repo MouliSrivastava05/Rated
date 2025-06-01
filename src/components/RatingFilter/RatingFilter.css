@@ -1,0 +1,77 @@
+.rating-filter-container {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.rating-filter-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.rating-filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rating-filter-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.rating-filter-button:hover {
+  background-color: #F9FAFB;
+  color: #374151;
+}
+
+.rating-filter-button.active {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.stars-container {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  margin-right: 0.25rem;
+}
+
+.star.active {
+  color: #FBBF24;
+}
+
+.star.inactive {
+  color: #D1D5DB;
+}
+
+.rating-label {
+  margin-left: 0.5rem;
+}
+
+.clear-filter-button {
+  width: 100%;
+  font-size: 0.875rem;
+  color: #6B7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.clear-filter-button:hover {
+  color: #374151;
+} 

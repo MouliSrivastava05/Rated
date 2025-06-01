@@ -8,27 +8,34 @@ import Contact from './pages/Contact';
 import ProductListing from './pages/ProductListing';
 import ProductDetails from './pages/ProductDetails';
 import Login from './pages/Login';
+import Cart from './pages/Cart';
+import Wishlist from './pages/Wishlist';
+import { CartWishlistProvider } from './context/CartWishlistContext';
 import './App.css';
 
 function App() {
 
   return (
-    <Router>
-      <div className="app-layout">  
-        <Navbar />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/products" element={<ProductListing />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <CartWishlistProvider>
+      <Router>
+        <div className="app-layout">  
+          <Navbar />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/products" element={<ProductListing />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </CartWishlistProvider>
   );
 }
 

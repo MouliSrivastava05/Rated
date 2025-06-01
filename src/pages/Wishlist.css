@@ -1,0 +1,119 @@
+.wishlist-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.wishlist-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.empty-wishlist-message {
+  text-align: center;
+  color: #6B7280;
+  font-size: 1.125rem;
+}
+
+.wishlist-items-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.wishlist-item {
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.wishlist-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wishlist-item-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background-color: #F3F4F6;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.wishlist-item-details {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.wishlist-item-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.wishlist-item-price {
+  font-size: 1rem;
+  color: #2563EB;
+  font-weight: bold;
+}
+
+.wishlist-item-actions {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid #E5E7EB;
+}
+
+.add-to-cart-button {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.add-to-cart-button:hover {
+  background-color: #1D4ED8;
+}
+
+.remove-button {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #DC2626;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.remove-button:hover {
+  background-color: #B91C1C;
+} 

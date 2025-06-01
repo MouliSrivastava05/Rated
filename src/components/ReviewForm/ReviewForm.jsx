@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import './ReviewForm.css';
 
 function ReviewForm({ onSubmit }) {
   const [review, setReview] = useState('');
@@ -29,39 +30,37 @@ function ReviewForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-2xl font-semibold mb-4">Write a Review</h3>
+    <form onSubmit={handleSubmit} className="review-form-container">
+      <h3 className="review-form-title">Write a Review</h3>
       
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+      <div className="form-group">
+        <label className="form-label">
           Your Name
         </label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className={`w-full px-3 py-2 border rounded-md ${
-            errors.name ? 'border-red-500' : 'border-gray-300'
-          }`}
+          className={`form-input ${errors.name ? 'error' : ''}`}
           placeholder="Enter your name"
         />
         {errors.name && (
-          <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+          <p className="error-message">{errors.name}</p>
         )}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+      <div className="form-group">
+        <label className="form-label">
           Rating
         </label>
-        <div className="flex items-center">
+        <div className="rating-input">
           {[1, 2, 3, 4, 5].map((star) => (
             <FaStar
               key={star}
-              className={`text-2xl cursor-pointer ${
+              className={`rating-star ${
                 star <= (hover || rating)
-                  ? 'text-yellow-400'
-                  : 'text-gray-300'
+                  ? 'filled'
+                  : 'empty'
               }`}
               onClick={() => setRating(star)}
               onMouseEnter={() => setHover(star)}
@@ -70,31 +69,29 @@ function ReviewForm({ onSubmit }) {
           ))}
         </div>
         {errors.rating && (
-          <p className="text-red-500 text-xs mt-1">{errors.rating}</p>
+          <p className="error-message">{errors.rating}</p>
         )}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+      <div className="form-group">
+        <label className="form-label">
           Your Review
         </label>
         <textarea
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          className={`w-full px-3 py-2 border rounded-md ${
-            errors.review ? 'border-red-500' : 'border-gray-300'
-          }`}
+          className={`form-textarea ${errors.review ? 'error' : ''}`}
           placeholder="Write your review here..."
           rows="4"
         />
         {errors.review && (
-          <p className="text-red-500 text-xs mt-1">{errors.review}</p>
+          <p className="error-message">{errors.review}</p>
         )}
       </div>
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+        className="submit-button"
       >
         Submit Review
       </button>

@@ -5,6 +5,7 @@ import RatingSummary from "../components/RatingSummary/RatingSummary";
 import RatingFilter from "../components/RatingFilter/RatingFilter";
 import ReviewForm from "../components/ReviewForm/ReviewForm";
 import UserReviewsList from "../components/UserReviewsList/UserReviewsList";
+import './ProductDetails.css';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -70,17 +71,17 @@ const ProductDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-red-600 text-center">
-          <h2 className="text-2xl font-bold mb-2">Error</h2>
+      <div className="error-container">
+        <div className="error-content">
+          <h2 className="error-title">Error</h2>
           <p>{error}</p>
         </div>
       </div>
@@ -91,25 +92,31 @@ const ProductDetails = () => {
     ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
     : 0;
 
+  // Calculate review counts per star rating
+  const reviewCounts = reviews.reduce((acc, review) => {
+    acc[review.rating] = (acc[review.rating] || 0) + 1;
+    return acc;
+  }, { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="product-details-container">
+      <div className="product-details-grid">
         {/* Left Column - Product Info */}
-        <div className="lg:col-span-2">
+        <div className="product-info-column">
           {product && <ProdInfo product={product} />}
         </div>
 
         {/* Right Column - Reviews Section */}
-        <div className="space-y-6">
-          <RatingSummary rating={averageRating} totalReviews={reviews.length} />
+        <div className="reviews-column">
+          <RatingSummary rating={averageRating} totalReviews={reviews.length} reviewCounts={reviewCounts} />
           <RatingFilter onFilter={handleFilter} activeFilter={activeFilter} />
         </div>
       </div>
 
       {/* Reviews Section */}
-      <div className="mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
+      <div className="reviews-section">
+        <div className="reviews-grid">
+          <div className="product-info-column">
             <UserReviewsList reviews={filteredReviews} />
           </div>
           <div>

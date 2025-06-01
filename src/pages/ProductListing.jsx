@@ -4,6 +4,7 @@ import { FaStar, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import ProductFilters from '../components/ProductFilters/ProductFilters';
 import SearchBar from '../components/SearchBar/SearchBar';
 import Pagination from '../components/Pagination/Pagination';
+import { useCartWishlist } from '../context/CartWishlistContext';
 import './ProductListing.css';
 
 function ProductListing() {
@@ -114,6 +115,9 @@ function ProductListing() {
     setCurrentPage(1);
   };
 
+  // Use cart and wishlist context
+  const { addToCart, toggleLike, isLiked } = useCartWishlist();
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -182,10 +186,10 @@ function ProductListing() {
                     className="product-image"
                   />
                   <div className={`product-actions ${hoveredProduct === product.id ? 'visible' : ''}`}>
-                    <button className="action-button">
-                      <FaHeart className="action-icon" />
+                    <button className="action-button" onClick={() => toggleLike(product)}>
+                      <FaHeart className={`action-icon ${isLiked(product.id) ? 'liked' : ''}`} />
                     </button>
-                    <button className="action-button">
+                    <button className="action-button" onClick={() => addToCart(product)}>
                       <FaShoppingCart className="action-icon" />
                     </button>
                   </div>
