@@ -6,14 +6,15 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductListing from './pages/ProductListing';
-import ProductDetails from './pages/Productdetails';
+import ProductDetails from './pages/ProductDetails';
 import Login from './pages/Login';
 import './App.css';
 
 function App() {
+
   return (
     <Router>
-      <div className="app-layout">
+      <div className="app-layout">  
         <Navbar />
         <main className="main-content">
           <Routes>

@@ -1,0 +1,100 @@
+.about {
+    padding: 60px 10%;
+    background-color: #f9f9f6; /* Light cream background */
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.8s ease;
+  }
+  
+  .about h1 {
+    font-size: 2.8rem;
+    color: #b8860b; /* Muted gold */
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .intro {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    line-height: 1.8;
+    color: #444;
+  }
+  
+  .about-section {
+    margin-bottom: 50px;
+  }
+  
+  .about-section h2 {
+    color: #b8860b;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    border-left: 4px solid #b8860b;
+    padding-left: 10px;
+  }
+  
+  .about-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+  }
+  
+  .values-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 25px;
+    justify-content: space-between;
+  }
+  
+  .value-card {
+    background-color: #fff;
+    padding: 20px 25px;
+    border: 1px solid #f0e6d2;
+    border-left: 4px solid #b8860b;
+    border-radius: 10px;
+    flex: 1 1 260px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.1);
+  }
+  
+  .value-card h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .value-card p {
+    font-size: 0.95rem;
+    color: #666;
+  }
+  
+  .about-footer {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 60px;
+  }
+  
+  .signature {
+    color: #b8860b;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  } 
