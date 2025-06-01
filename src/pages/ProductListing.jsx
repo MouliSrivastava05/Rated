@@ -2,6 +2,9 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import ProductFilters from '../components/ProductFilters/ProductFilters';
+import SearchBar from '../components/SearchBar/SearchBar';
+import Pagination from '../components/Pagination/Pagination';
+import './ProductListing.css';
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
@@ -13,6 +16,11 @@ function ProductListing() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   // Get unique categories from products
   const categories = useMemo(() => {
@@ -41,6 +49,16 @@ function ProductListing() {
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
     let result = [...products];
+
+    // Apply search filter
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      result = result.filter(product => 
+        product.title.toLowerCase().includes(searchLower) ||
+        product.description.toLowerCase().includes(searchLower) ||
+        product.category.toLowerCase().includes(searchLower)
+      );
+    }
 
     // Apply category filter
     if (selectedCategory) {
@@ -75,43 +93,59 @@ function ProductListing() {
     }
 
     return result;
-  }, [products, selectedCategory, sortBy, priceRange]);
+  }, [products, selectedCategory, sortBy, priceRange, searchTerm]);
+
+  // Get current page items
+  const currentItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredAndSortedProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredAndSortedProducts, currentPage, itemsPerPage]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, sortBy, priceRange, searchTerm, itemsPerPage]);
 
   const handleClearFilters = () => {
     setSelectedCategory('');
     setSortBy('featured');
     setPriceRange({ min: '', max: '' });
+    setSearchTerm('');
+    setCurrentPage(1);
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-red-600 text-center">
-          <h2 className="text-2xl font-bold mb-2">Error</h2>
-          <p>{error}</p>
+      <div className="error-container">
+        <div className="error-content">
+          <h2 className="error-title">Error</h2>
+          <p className="error-message">{error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Our Products</h1>
-        <p className="text-gray-600 mt-2">Discover our collection of high-quality products</p>
+    <div className="product-listing-container">
+      <div className="product-listing-header">
+        <h1 className="product-listing-title">Our Products</h1>
+        <p className="product-listing-subtitle">Discover our collection of high-quality products</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="product-listing-grid">
         {/* Filters Sidebar */}
-        <div className="lg:col-span-1">
+        <div className="filters-sidebar">
+          <div className="search-container">
+            <SearchBar onSearch={setSearchTerm} products={products} />
+          </div>
           <ProductFilters
             categories={categories}
             selectedCategory={selectedCategory}
@@ -125,69 +159,64 @@ function ProductListing() {
         </div>
 
         {/* Products Grid */}
-        <div className="lg:col-span-3">
-          <div className="mb-4 flex justify-between items-center">
-            <p className="text-gray-600">
+        <div className="products-grid-container">
+          <div className="products-count">
+            <p className="products-count-text">
               Showing {filteredAndSortedProducts.length} products
+              {searchTerm && ` for "${searchTerm}"`}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAndSortedProducts.map(product => (
+          <div className="products-grid">
+            {currentItems.map(product => (
               <div
                 key={product.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg"
+                className="product-card"
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
-                <div className="relative aspect-square bg-gray-100">
+                <div className="product-image-container">
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-contain p-4 transition-transform duration-300 hover:scale-105"
+                    className="product-image"
                   />
-                  <div className={`absolute top-4 right-4 flex flex-col gap-2 transition-opacity duration-300 ${
-                    hoveredProduct === product.id ? 'opacity-100' : 'opacity-0'
-                  }`}>
-                    <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
-                      <FaHeart className="text-gray-400 hover:text-red-500" />
+                  <div className={`product-actions ${hoveredProduct === product.id ? 'visible' : ''}`}>
+                    <button className="action-button">
+                      <FaHeart className="action-icon" />
                     </button>
-                    <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
-                      <FaShoppingCart className="text-gray-400 hover:text-blue-500" />
+                    <button className="action-button">
+                      <FaShoppingCart className="action-icon" />
                     </button>
                   </div>
                 </div>
 
-                <div className="p-4">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                <div className="product-info">
+                  <h2 className="product-title">
                     {product.title}
                   </h2>
                   
-                  <div className="flex items-center mb-2">
-                    <div className="flex items-center">
+                  <div className="product-rating">
+                    <div className="rating-stars">
                       {[...Array(5)].map((_, i) => (
                         <FaStar
                           key={i}
-                          className={`${
-                            i < Math.round(product.rating?.rate || 0)
-                              ? 'text-yellow-400'
-                              : 'text-gray-300'
-                          }`}
+                          className={`star ${i < Math.round(product.rating?.rate || 0) ? 'filled' : ''}`}
                         />
                       ))}
                     </div>
-                    <span className="text-sm text-gray-500 ml-2">
+                    <span className="rating-count">
                       ({product.rating?.count || 0})
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between mt-4">
-                    <span className="text-xl font-bold text-blue-600">
+                  <div className="product-footer">
+                    <span className="product-price">
                       ${product.price.toFixed(2)}
                     </span>
                     <Link
-                      to={`/product/${product.id}`}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                      to={`/products/${product.id}`}
+                      className="view-details-button"
                     >
                       View Details
                     </Link>
@@ -197,16 +226,24 @@ function ProductListing() {
             ))}
           </div>
 
-          {filteredAndSortedProducts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">No products found matching your criteria.</p>
+          {filteredAndSortedProducts.length === 0 ? (
+            <div className="no-products">
+              <p className="no-products-text">No products found matching your criteria.</p>
               <button
                 onClick={handleClearFilters}
-                className="mt-4 text-blue-600 hover:text-blue-700"
+                className="clear-filters-button"
               >
                 Clear all filters
               </button>
             </div>
+          ) : (
+            <Pagination
+              currentPage={currentPage}
+              totalItems={filteredAndSortedProducts.length}
+              itemsPerPage={itemsPerPage}
+              onPageChange={setCurrentPage}
+              onItemsPerPageChange={setItemsPerPage}
+            />
           )}
         </div>
       </div>
