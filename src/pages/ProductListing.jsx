@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaStar, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import ProductFilters from '../components/ProductFilters/ProductFilters';
 import SearchBar from '../components/SearchBar/SearchBar';
@@ -18,6 +18,16 @@ function ProductListing() {
   const [sortBy, setSortBy] = useState('featured');
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
   const [searchTerm, setSearchTerm] = useState('');
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const category = params.get('category');
+    if (category) {
+      setSelectedCategory(category);
+    }
+  }, [location.search]);
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);

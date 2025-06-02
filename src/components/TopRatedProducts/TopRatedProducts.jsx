@@ -13,15 +13,17 @@ function TopRatedProducts() {
   }, []);
 
   return (
-    <section className="top-rated">
-      <h2>Top Rated Products</h2>
-      <div className="product-grid">
+    <section className="top-rated-section">
+      <h2 className="top-rated-title">Top Rated Products</h2>
+      <div className="top-rated-grid">
         {products.map(product => (
-          <div key={product.id} className="product-card">
+          <div key={product.id} className="top-rated-card">
             <img src={product.image} alt={product.title} />
-            <h3>{product.title}</h3>
-            <p>₹{product.price}</p>
-            <p>⭐ {product.rating?.rate} ({product.rating?.count} reviews)</p>
+            <div className="top-rated-card-info">
+              <h3 className="top-rated-card-title">{product.title}</h3>
+              <p className="top-rated-card-price">${product.price.toFixed(2)}</p>
+              <p className="top-rated-card-rating">⭐ {product.rating?.rate} ({product.rating?.count} reviews)</p>
+            </div>
           </div>
         ))}
       </div>

@@ -1,0 +1,44 @@
+.promo-banner-container {
+  background-color: #FFECB3; /* Light yellow background */
+  padding: 2rem 1rem;
+  text-align: center;
+  margin: 2rem auto; /* Add margin top and bottom */
+  max-width: 1280px; /* Match max width of other sections */
+  border-radius: 0.5rem;
+}
+
+.promo-banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.promo-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #E65100; /* Dark orange color */
+  margin: 0;
+}
+
+.promo-text {
+  font-size: 1.125rem;
+  color: #F57F17; /* Orange color */
+  margin: 0;
+}
+
+.shop-now-button {
+  background-color: #FF9800; /* Orange button */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.shop-now-button:hover {
+  background-color: #FB8C00; /* Darker orange on hover */
+} 
