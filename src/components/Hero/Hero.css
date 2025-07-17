@@ -1,5 +1,4 @@
 .hero {
-  /* Reverted background to previous gradient */
   background: linear-gradient(to right, goldenrod, #f5deb3, #daa520);
   padding: 60px 20px;
   text-align: center;

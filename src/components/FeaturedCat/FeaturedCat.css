@@ -1,65 +1,55 @@
 .featured-categories {
-  padding: 3rem 1.5rem; /* Increase padding */
+  padding: 3rem 1.5rem; 
   max-width: 1280px;
   margin: 0 auto;
-  text-align: center; /* Center the title */
+  text-align: center; 
 }
 
 .featured-categories h2 {
-  font-size: 2rem; /* Slightly larger font size */
-  font-weight: 700; /* Bolder font weight */
-  color: #1f2937; /* Slightly darker text color */
-  margin-bottom: 2.5rem; /* Increase bottom margin */
-  letter-spacing: -0.025em; /* Add subtle letter spacing */
+  font-size: 2rem; 
+  font-weight: 700;
+  color: #1f2937; 
+  margin-bottom: 2.5rem; 
 }
 
 .featured-categories ul {
-  list-style: none; /* Remove default list bullets */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
-  display: grid; /* Set up grid display */
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjust min width for slightly larger items */
-  gap: 1.25rem; /* Increase gap between grid items */
+  list-style: none; 
+  margin: 0; 
+  display: grid; 
+  gap: 1.25rem;
 }
 
 .featured-categories li {
-  list-style: none; /* Ensure no list style on li */
-  margin: 0; /* Remove any default margin on li */
-  padding: 0; /* Remove any default padding on li */
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
 }
 
-.featured-categories li::before,
-.featured-categories li::after {
-  content: none; /* Remove any pseudo-element content */
-}
 
 .category-item {
-  display: block; /* Make button take full width of grid item */
+  display: block;
   width: 100%;
-  background-color: #ffffff; /* White background */
-  border: 1px solid #d1d5db; /* Slightly darker light gray border */
-  border-radius: 0.75rem; /* Slightly more rounded corners */
-  padding: 1.5rem 1.25rem; /* Increase padding */
+  background-color: #ffffff; 
+  border: 1px solid #d1d5db; 
+  border-radius: 0.75rem; 
+  padding: 1.5rem 1.25rem; 
   text-align: center;
   font-size: 1.125rem;
-  font-weight: 600; /* Slightly bolder text */
-  color: #374151; /* Dark gray text */
-  transition: all 0.3s ease; /* Smooth transitions for hover */
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.3s ease; 
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Stronger subtle box shadow */
-  -webkit-appearance: none; /* Remove default button appearance */
-  -moz-appearance: none;
-  appearance: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .category-item:hover {
-  background-color: #f3f4f6; /* Lighter background on hover */
-  border-color: #9ca3af; /* Even darker border on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+  background-color: #f3f4f6; 
+  border-color: #9ca3af; 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
 }
 
 .category-item:active {
-  background-color: #e5e7eb; /* Gray background on active */
-  transform: translateY(0); /* Reset transform on active */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Smaller shadow on active */
+  background-color: #e5e7eb;
+  transform: translateY(0); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }

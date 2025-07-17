@@ -12,7 +12,6 @@ const Pagination = ({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const pageNumbers = [];
 
-  // Generate page numbers with ellipsis
   for (let i = 1; i <= totalPages; i++) {
     if (
       i === 1 ||
@@ -55,7 +54,6 @@ const Pagination = ({
         <span className="items-per-page-text">per page</span>
       </div>
 
-      {/* Page navigation */}
       <div className="page-navigation">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -89,7 +87,6 @@ const Pagination = ({
         </button>
       </div>
 
-      {/* Page info */}
       <div className="page-info">
         Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
         {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} items

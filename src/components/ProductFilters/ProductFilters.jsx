@@ -19,7 +19,6 @@ const ProductFilters = ({
         <h2 className="filters-title">Filters</h2>
       </div>
 
-      {/* Category Filter */}
       <div className="filter-section">
         <h3 className="filter-section-title">Categories</h3>
         <div className="category-list">
@@ -35,7 +34,6 @@ const ProductFilters = ({
         </div>
       </div>
 
-      {/* Price Range Filter */}
       <div className="filter-section">
         <h3 className="filter-section-title">Price Range</h3>
         <div className="price-range-inputs">
@@ -64,7 +62,6 @@ const ProductFilters = ({
         </div>
       </div>
 
-      {/* Sort Options */}
       <div className="filter-section">
         <h3 className="filter-section-title">Sort By</h3>
         <select
@@ -80,7 +77,6 @@ const ProductFilters = ({
         </select>
       </div>
 
-      {/* Clear Filters Button */}
       <button onClick={onClearFilters} className="clear-filters-button">
         <FaTimes className="clear-icon" />
         Clear All Filters

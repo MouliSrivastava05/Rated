@@ -20,7 +20,6 @@ const SearchBar = ({ onSearch, products }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Debounce search input
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (searchTerm) {
@@ -78,7 +77,6 @@ const SearchBar = ({ onSearch, products }) => {
         )}
       </div>
 
-      {/* Search Suggestions */}
       {showSuggestions && suggestions.length > 0 && (
         <div className="suggestions-container">
           {suggestions.map(product => (
@@ -102,7 +100,6 @@ const SearchBar = ({ onSearch, products }) => {
         </div>
       )}
 
-      {/* No Results */}
       {showSuggestions && searchTerm && suggestions.length === 0 && (
         <div className="no-results">
           No products found matching "{searchTerm}"
