@@ -1,8 +1,11 @@
 import React from 'react';
 import { FaShoppingCart, FaHeart } from 'react-icons/fa';
+import { useCartWishlist } from '../../context/CartWishlistContext';
 import './ProdInfo.css';
 
 function ProdInfo({ product }) {
+  const { addToCart, toggleLike, isLiked } = useCartWishlist();
+
   if (!product) {
     return (
       <div className="loading-container">
@@ -50,12 +53,12 @@ function ProdInfo({ product }) {
           </p>
 
           <div className="prod-actions">
-            <button className="add-to-cart-button">
+            <button className="add-to-cart-button" onClick={() => addToCart(product)}>
               <FaShoppingCart />
               <span>Add to Cart</span>
             </button>
-            <button className="wishlist-button">
-              <FaHeart className="wishlist-icon" />
+            <button className="wishlist-button" onClick={() => toggleLike(product)}>
+              <FaHeart className={`wishlist-icon${isLiked(product.id) ? ' liked' : ''}`} />
             </button>
           </div>
 
