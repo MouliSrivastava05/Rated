@@ -24,6 +24,8 @@
     "@vitejs/plugin-react": "^4.3.4",
     "esbuild": "^0.25.4",
     "eslint": "^9.22.0",
+    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "fdir": "6.0.0",
