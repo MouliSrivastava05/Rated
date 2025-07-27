@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { FaTag } from 'react-icons/fa';
 import './FeaturedCat.css'
 function FeaturedCategories() {
   const [categories, setCategories] = useState([]);
@@ -17,17 +16,18 @@ function FeaturedCategories() {
   };
 
   return (
-    <section className="featured-categories-circles">
-      <h2 className="featured-categories-title-modern">Featured Categories</h2>
-      <div className="category-circles-row">
+    <div className="featured-categories-section">
+      <h2 className="featured-categories-title">Featured Categories</h2>
+      <ul className="category-list">
         {categories.map(cat => (
-          <div key={cat} className="category-circle-card" onClick={() => handleCategoryClick(cat)}>
-            <div className="category-circle-icon"><FaTag /></div>
-            <div className="category-circle-name">{cat.charAt(0).toUpperCase() + cat.slice(1)}</div>
-          </div>
+          <li key={cat}>
+            <button className="category-item" onClick={() => handleCategoryClick(cat)}>
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          </li>
         ))}
-      </div>
-    </section>
+      </ul>
+    </div>
   );
 }
 
