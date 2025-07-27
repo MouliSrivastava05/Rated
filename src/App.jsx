@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductListing from './pages/ProductListing.jsx';
-import ProductDetails from './pages/ProductDetails.jsx';
+import ProductDetails from './pages/ProductDetails.jsx'; // Corrected filename
 import Login from './pages/Login';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
@@ -18,7 +18,7 @@ function App() {
   return (
     <CartWishlistProvider>
       <Router>
-        <div className="app-layout">  
+        <div className="app-layout">
           <Navbar />
           <main className="main-content">
             <Routes>

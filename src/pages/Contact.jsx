@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import "./Contact.css";
 
 const Contact = () => {
-  const [mapUrl, setMapUrl] = useState("");
-
-  
   return (
     <>
       <div className="contact-container">
@@ -27,7 +23,7 @@ const Contact = () => {
               width="100%"
               height="300"
               loading="lazy"
-              src="https://www.google.com/maps/embed/v1/place?q=New+Delhi&key=AIzaSyAhYE4g0Hxn1V_UjbK_KvB0UcFqfDeZPN8"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613147688!3d-6.194741395514638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x28b39c6b0c0a4e0!2sJakarta%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1625833423948!5m2!1sen!2sid"
             ></iframe>
           </div>
         </section>

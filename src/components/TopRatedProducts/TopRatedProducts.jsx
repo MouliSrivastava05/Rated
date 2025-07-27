@@ -17,7 +17,7 @@ function TopRatedProducts() {
       <h2 className="top-rated-title">Top Rated Products</h2>
       <div className="top-rated-grid">
         {products.map(product => (
-          <div key={product.id} className="top-rated-card">
+          <div key={product.id} className="top-rated-card"> {/* Added key here */}
             <img src={product.image} alt={product.title} />
             <div className="top-rated-card-info">
               <h3 className="top-rated-card-title">{product.title}</h3>
