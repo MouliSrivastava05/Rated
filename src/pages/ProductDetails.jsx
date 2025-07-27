@@ -24,7 +24,7 @@ const ProductDetails = () => {
         if (!response.ok) throw new Error('Failed to fetch product');
         const data = await response.json();
         setProduct(data);
-        // Initialize with some sample reviews
+
         setReviews([
           {
             name: "John Doe",
@@ -92,7 +92,6 @@ const ProductDetails = () => {
     ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
     : 0;
 
-  // Calculate review counts per star rating
   const reviewCounts = reviews.reduce((acc, review) => {
     acc[review.rating] = (acc[review.rating] || 0) + 1;
     return acc;
@@ -101,19 +100,17 @@ const ProductDetails = () => {
   return (
     <div className="product-details-container">
       <div className="product-details-grid">
-        {/* Left Column - Product Info */}
+
         <div className="product-info-column">
           {product && <ProdInfo product={product} />}
         </div>
 
-        {/* Right Column - Reviews Section */}
         <div className="reviews-column">
           <RatingSummary rating={averageRating} totalReviews={reviews.length} reviewCounts={reviewCounts} />
           <RatingFilter onFilter={handleFilter} activeFilter={activeFilter} />
         </div>
       </div>
 
-      {/* Reviews Section */}
       <div className="reviews-section">
         <div className="reviews-grid">
           <div className="product-info-column">

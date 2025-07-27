@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar/SearchBar';
 import Pagination from '../components/Pagination/Pagination';
 import { useCartWishlist } from '../context/CartWishlistContext';
 import './ProductListing.css';
+import '../pages/Home.css';
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
@@ -148,117 +149,119 @@ function ProductListing() {
   }
 
   return (
-    <div className="product-listing-container">
-      <div className="product-listing-header">
-        <h1 className="product-listing-title">Our Products</h1>
-        <p className="product-listing-subtitle">Discover our collection of high-quality products</p>
-      </div>
-
-      <div className="product-listing-grid">
-        {/* Filters Sidebar */}
-        <div className="filters-sidebar">
-          <div className="search-container">
-            <SearchBar onSearch={setSearchTerm} products={products} />
-          </div>
-          <ProductFilters
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            priceRange={priceRange}
-            onPriceRangeChange={setPriceRange}
-            onClearFilters={handleClearFilters}
-          />
+    <div className="home-section">
+      <div className="product-listing-container">
+        <div className="product-listing-header">
+          <h1 className="top-rated-title">Our Products</h1>
+          <p className="product-listing-subtitle">Discover our collection of high-quality products</p>
         </div>
 
-        {/* Products Grid */}
-        <div className="products-grid-container">
-          <div className="products-count">
-            <p className="products-count-text">
-              Showing {filteredAndSortedProducts.length} products
-              {searchTerm && ` for "${searchTerm}"`}
-            </p>
-          </div>
-
-          <div className="products-grid">
-            {currentItems.map(product => (
-              <div
-                key={product.id}
-                className="product-card"
-                onMouseEnter={() => setHoveredProduct(product.id)}
-                onMouseLeave={() => setHoveredProduct(null)}
-              >
-                <div className="product-image-container">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="product-image"
-                  />
-                  <div className={`product-actions ${hoveredProduct === product.id ? 'visible' : ''}`}>
-                    <button className="action-button" onClick={() => toggleLike(product)}>
-                      <FaHeart className={`action-icon ${isLiked(product.id) ? 'liked' : ''}`} />
-                    </button>
-                    <button className="action-button" onClick={() => addToCart(product)}>
-                      <FaShoppingCart className="action-icon" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="product-info">
-                  <h2 className="product-title">
-                    {product.title}
-                  </h2>
-                  
-                  <div className="product-rating">
-                    <div className="rating-stars">
-                      {[...Array(5)].map((_, i) => (
-                        <FaStar
-                          key={i}
-                          className={`star ${i < Math.round(product.rating?.rate || 0) ? 'filled' : ''}`}
-                        />
-                      ))}
-                    </div>
-                    <span className="rating-count">
-                      ({product.rating?.count || 0})
-                    </span>
-                  </div>
-
-                  <div className="product-footer">
-                    <span className="product-price">
-                      ${product.price.toFixed(2)}
-                    </span>
-                    <Link
-                      to={`/products/${product.id}`}
-                      className="view-details-button"
-                    >
-                      View Details
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {filteredAndSortedProducts.length === 0 ? (
-            <div className="no-products">
-              <p className="no-products-text">No products found matching your criteria.</p>
-              <button
-                onClick={handleClearFilters}
-                className="clear-filters-button"
-              >
-                Clear all filters
-              </button>
+        <div className="product-listing-grid">
+          {/* Filters Sidebar */}
+          <div className="filters-sidebar">
+            <div className="search-container">
+              <SearchBar onSearch={setSearchTerm} products={products} />
             </div>
-          ) : (
-            <Pagination
-              currentPage={currentPage}
-              totalItems={filteredAndSortedProducts.length}
-              itemsPerPage={itemsPerPage}
-              onPageChange={setCurrentPage}
-              onItemsPerPageChange={setItemsPerPage}
+            <ProductFilters
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+              sortBy={sortBy}
+              onSortChange={setSortBy}
+              priceRange={priceRange}
+              onPriceRangeChange={setPriceRange}
+              onClearFilters={handleClearFilters}
             />
-          )}
+          </div>
+
+          {/* Products Grid */}
+          <div className="products-grid-container">
+            <div className="products-count">
+              <p className="products-count-text">
+                Showing {filteredAndSortedProducts.length} products
+                {searchTerm && ` for "${searchTerm}"`}
+              </p>
+            </div>
+
+            <div className="products-grid">
+              {currentItems.map(product => (
+                <div
+                  key={product.id}
+                  className="product-card"
+                  onMouseEnter={() => setHoveredProduct(product.id)}
+                  onMouseLeave={() => setHoveredProduct(null)}
+                >
+                  <div className="product-image-container">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="product-image"
+                    />
+                    <div className={`product-actions ${hoveredProduct === product.id ? 'visible' : ''}`}>
+                      <button className="action-button" onClick={() => toggleLike(product)}>
+                        <FaHeart className={`action-icon ${isLiked(product.id) ? 'liked' : ''}`} />
+                      </button>
+                      <button className="action-button" onClick={() => addToCart(product)}>
+                        <FaShoppingCart className="action-icon" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="product-info">
+                    <h2 className="product-title">
+                      {product.title}
+                    </h2>
+                    
+                    <div className="product-rating">
+                      <div className="rating-stars">
+                        {[...Array(5)].map((_, i) => (
+                          <FaStar
+                            key={i}
+                            className={`star ${i < Math.round(product.rating?.rate || 0) ? 'filled' : ''}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="rating-count">
+                        ({product.rating?.count || 0})
+                      </span>
+                    </div>
+
+                    <div className="product-footer">
+                      <span className="product-price">
+                        ${product.price.toFixed(2)}
+                      </span>
+                      <Link
+                        to={`/products/${product.id}`}
+                        className="view-details-button"
+                      >
+                        View Details
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {filteredAndSortedProducts.length === 0 ? (
+              <div className="no-products">
+                <p className="no-products-text">No products found matching your criteria.</p>
+                <button
+                  onClick={handleClearFilters}
+                  className="clear-filters-button"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <Pagination
+                currentPage={currentPage}
+                totalItems={filteredAndSortedProducts.length}
+                itemsPerPage={itemsPerPage}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={setItemsPerPage}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

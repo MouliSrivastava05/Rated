@@ -29,73 +29,166 @@
   padding: 2rem 1rem;
   max-width: 1280px;
   margin: 0 auto;
+  background: #f6f7f9;
+}
+
+.top-rated-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .top-rated-title {
-  font-size: 1.875rem;
+  font-size: 2.25rem;
   font-weight: bold;
-  color: #111827;
-  text-align: center;
-  margin-bottom: 2rem;
+  color: #23272f;
+  margin: 0;
+}
+
+.top-rated-viewall {
+  background: #23272f;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(35,39,47,0.08);
+  transition: background 0.3s, transform 0.2s;
+  display: inline-block;
+}
+
+.top-rated-viewall:hover {
+  background: #111216;
+  transform: translateY(-2px) scale(1.04);
 }
 
 .top-rated-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .top-rated-card {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px rgba(35,39,47,0.06), 0 1.5px 6px rgba(0,0,0,0.03);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+  border: 1.5px solid #ececec;
+  min-height: 370px;
 }
 
 .top-rated-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(35,39,47,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  border-color: #bfc2c7;
+}
+
+.top-rated-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #23272f;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 1.1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(35,39,47,0.10);
+  letter-spacing: 0.04em;
+  z-index: 2;
 }
 
 .top-rated-card img {
   width: 100%;
   height: 200px;
   object-fit: contain;
-  background-color: #F3F4F6;
-  border-bottom: 1px solid #E5E7EB;
-  padding: 1rem;
+  background: #f6f7f9;
+  border-bottom: 1px solid #ececec;
+  padding: 1.5rem 1rem 1rem 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .top-rated-card-info {
-  padding: 1rem;
+  padding: 1.25rem 1.25rem 1.5rem 1.25rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .top-rated-card-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #111827;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #23272f;
   margin-bottom: 0.5rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .top-rated-card-price {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: bold;
-  color: #0d47a1; /* Consistent with product listing */
-  margin-top: auto; /* Push to bottom */
+  color: #23272f;
+  margin-top: auto;
   margin-bottom: 0.5rem;
 }
 
 .top-rated-card-rating {
-  font-size: 0.875rem;
-  color: #4B5563;
+  font-size: 0.95rem;
+  color: #6b6e76;
+  font-weight: 500;
+}
+
+.top-rated-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.card-action-btn {
+  background: #f6f7f9;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #23272f;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(35,39,47,0.06);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.card-action-btn:hover, .card-action-btn:focus {
+  background: #23272f;
+  color: #fff;
+  outline: none;
+  transform: translateY(-2px) scale(1.08);
+}
+
+.card-action-btn:active {
+  background: #bfc2c7;
+  color: #23272f;
+}
+
+.wishlist-icon.liked {
+  color: #e63946;
+}
+
+/* Animation for card entrance */
+@keyframes fadein {
+  0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-fadein {
+  animation: fadein 0.7s cubic-bezier(.4,2,.6,1) both;
 }

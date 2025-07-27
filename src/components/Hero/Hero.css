@@ -1,37 +1,109 @@
-.hero {
-  background: linear-gradient(to right, goldenrod, #f5deb3, #daa520);
-  padding: 60px 20px;
-  text-align: center;
-  border-radius: 8px;
-  margin: 20px auto;
-  max-width: 1280px; /* Increased max width */
-  height: 300px; /* Increased height */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Removed height, background-image, background-size, background-position */
-  /* Removed flex properties as not needed for basic centered text */
-  color: initial; /* Revert text color to default or specified by other rules */
-  
-  /* Added flexbox for vertical centering */
+.hero-section {
+  position: relative;
+  min-height: 70vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background: #f7f8fa;
+  overflow: hidden;
+  padding: 0 1.5rem;
 }
 
-/* Removed overlay */
-.hero::before {
-  content: none;
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(60,72,107,0.08) 0%, rgba(255,255,255,0.7) 100%);
+  z-index: 1;
 }
 
-.hero h1 {
-  font-size: 3rem; /* Slightly increased font size */
-  color: #333; /* Reverted color */
-  margin-bottom: 15px;
-  z-index: auto; /* Revert z-index */
+.hero-content.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  z-index: 2;
+  position: relative;
+  gap: 2.5rem;
 }
 
-.hero p {
-  font-size: 1.4rem; /* Slightly increased font size */
-  color: #4f4f4f; /* Reverted color */
-  z-index: auto; /* Revert z-index */
+.hero-text {
+  text-align: left;
+  padding: 2rem 0 2rem 1rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #23272f;
+  margin-bottom: 1.2rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.hero-subtitle {
+  font-size: 1.35rem;
+  color: #4b5162;
+  margin-bottom: 2.2rem;
+  font-weight: 400;
+  max-width: 32rem;
+}
+
+.hero-cta-button {
+  background: #23272f;
+  color: #fff;
+  padding: 1.1rem 2.7rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 2.5rem;
+  box-shadow: 0 2px 12px rgba(35,39,47,0.08);
+  transition: background 0.3s, transform 0.2s;
+  display: inline-block;
+  letter-spacing: 0.01em;
+}
+
+.hero-cta-button:hover {
+  background: #3a4052;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.hero-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 2rem 0;
+}
+
+.hero-image {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 8px 32px rgba(35,39,47,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  border: 6px solid #fff;
+  background: #e9ecef;
+}
+
+@media (max-width: 900px) {
+  .hero-content.hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .hero-text {
+    text-align: center;
+    padding: 2rem 0 0 0;
+  }
+  .hero-image-container {
+    padding: 1rem 0 2rem 0;
+    justify-content: center;
+  }
+  .hero-image {
+    width: 220px;
+    height: 220px;
+  }
 }

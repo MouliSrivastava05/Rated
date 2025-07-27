@@ -6,8 +6,9 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductListing from './pages/ProductListing.jsx';
-import ProductDetails from './pages/ProductDetails.jsx'; // Corrected filename
+import ProductDetails from './pages/ProductDetails.jsx';
 import Login from './pages/Login';
+import Signup from './pages/Signup'; 
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
 import { CartWishlistProvider } from './context/CartWishlistContext';
@@ -28,6 +29,7 @@ function App() {
               <Route path="/products" element={<ProductListing />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} /> 
               <Route path="/cart" element={<Cart />} />
               <Route path="/wishlist" element={<Wishlist />} />
             </Routes>

@@ -8,7 +8,6 @@ const SearchBar = ({ onSearch, products }) => {
   const [suggestions, setSuggestions] = useState([]);
   const searchRef = useRef(null);
 
-  // Close suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {

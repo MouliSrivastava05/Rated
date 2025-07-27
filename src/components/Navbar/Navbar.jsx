@@ -27,6 +27,9 @@ const Navbar = () => {
             {likedItems.length > 0 && <span className="nav-counter">{likedItems.length}</span>}
           </Link>
         </li>
+        <li>
+          <Link to="/login" className="nav-login">Login</Link>
+        </li>
       </ul>
     </nav>
   );

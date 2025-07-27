@@ -1,15 +1,49 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #fafafa;
+  background-color: #f7f8fa;
+  color: #23272f;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
   text-decoration: none;
-  color: blue;
+  color: #3a4052;
+  transition: color 0.2s;
+}
+
+a:hover, a:focus {
+  color: #23272f;
 }
 
 button {
-  margin: 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin: 0;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid #ececec;
+  background: #fff;
+  color: #23272f;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #3a4052;
+  box-shadow: 0 2px 8px rgba(35,39,47,0.08);
 }
