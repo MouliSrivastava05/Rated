@@ -9,12 +9,13 @@ function NewArrivals() {
   const { addToCart, toggleLike, isLiked } = useCartWishlist();
 
   useEffect(() => {
-
+    // Fetch all products
     fetch("https://fakestoreapi.com/products")
       .then(res => res.json())
       .then(data => {
-        // Sort by ID in descending order to get newest 
+        // Sort by ID in descending order to get newest (assuming higher ID means newer)
         const newestProducts = data.sort((a, b) => b.id - a.id);
+        // Take the first few, e.g., 4
         setProducts(newestProducts.slice(0, 4));
       });
   }, []);

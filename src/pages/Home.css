@@ -23,6 +23,7 @@
   box-shadow: 0 2px 12px rgba(35,39,47,0.03);
 }
 
+/* Section title alignment for all sections */
 .top-rated-header, .new-arrivals-header, .featured-categories-section h2 {
   display: flex;
   align-items: center;
@@ -46,6 +47,8 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Remove old hero/section styles if not used */
+/* .hero-section, .hero-content, .hero-text h1, .hero-text p, .featured-section, .section-title, .section-title h2, .section-title p { display: none; } */
 
 @media (max-width: 900px) {
   .home-section {
