@@ -33,6 +33,10 @@ export const CartWishlistProvider = ({ children }) => {
     );
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const toggleLike = (product) => {
     setLikedItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
@@ -55,6 +59,7 @@ export const CartWishlistProvider = ({ children }) => {
       addToCart,
       removeFromCart,
       updateQuantity,
+      clearCart,
       toggleLike,
       isLiked
     }}>

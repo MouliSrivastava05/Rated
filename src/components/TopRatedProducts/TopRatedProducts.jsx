@@ -27,7 +27,7 @@ function TopRatedProducts() {
         {products.map((product, idx) => (
           <article key={product.id} className={`top-rated-card animate-fadein`} style={{ animationDelay: `${idx * 0.1 + 0.2}s` }}>
             <span className="top-rated-badge">Top Rated</span>
-            <img src={product.image} alt={product.title} />
+            <img src={product.image} alt={product.title} loading="lazy" decoding="async" />
             <div className="top-rated-card-info">
               <h3 className="top-rated-card-title">{product.title}</h3>
               <p className="top-rated-card-price">${product.price.toFixed(2)}</p>

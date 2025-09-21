@@ -30,7 +30,7 @@ function NewArrivals() {
         {products.map((product, idx) => (
           <article key={product.id} className={`new-arrivals-card animate-fadein`} style={{ animationDelay: `${idx * 0.1 + 0.2}s` }}>
             <span className="new-arrivals-badge">New</span>
-            <img src={product.image} alt={product.title} />
+            <img src={product.image} alt={product.title} loading="lazy" decoding="async" />
             <div className="new-arrivals-card-info">
               <h3 className="new-arrivals-card-title">{product.title}</h3>
               <p className="new-arrivals-card-price">${product.price.toFixed(2)}</p>

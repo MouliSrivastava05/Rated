@@ -22,6 +22,8 @@ function ProdInfo({ product }) {
               src={product.image}
               alt={product.title}
               className="prod-image"
+              loading="eager"
+              decoding="async"
             />
           </div>
         </div>

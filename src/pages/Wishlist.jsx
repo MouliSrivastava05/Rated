@@ -18,7 +18,7 @@ function Wishlist() {
             {likedItems.map(item => (
               <div key={item.id} className="wishlist-item">
                 <Link to={`/products/${item.id}`} className="wishlist-item-link">
-                  <img src={item.image} alt={item.title} className="wishlist-item-image" />
+                  <img src={item.image} alt={item.title} className="wishlist-item-image" loading="lazy" decoding="async" />
                   <div className="wishlist-item-details">
                     <h2 className="wishlist-item-title">{item.title}</h2>
                     <p className="wishlist-item-price">${item.price.toFixed(2)}</p>

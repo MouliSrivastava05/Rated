@@ -47,12 +47,15 @@
 }
 
 .cart-item-image {
-  width: 5rem;
-  height: 5rem;
+  width: min(5rem, 15vw);
+  height: min(5rem, 15vw);
+  aspect-ratio: 1;
   object-fit: contain;
   margin-right: 1rem;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   border: 1px solid #F3F4F6;
+  background: #f9fafb;
+  padding: 0.5rem;
 }
 
 .cart-item-details {

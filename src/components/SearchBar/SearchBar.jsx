@@ -88,6 +88,8 @@ const SearchBar = ({ onSearch, products }) => {
                 src={product.image}
                 alt={product.title}
                 className="suggestion-image"
+                loading="lazy"
+                decoding="async"
               />
               <div className="suggestion-info">
                 <h3 className="suggestion-title">{product.title}</h3>

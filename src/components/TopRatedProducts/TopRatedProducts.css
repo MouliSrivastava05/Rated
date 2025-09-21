@@ -20,9 +20,13 @@
 }
 
 .product-card img {
-  max-width: 100%;
-  height: 150px;
+  width: 100%;
+  height: min(180px, 30vw);
+  aspect-ratio: 1;
   object-fit: contain;
+  background: #f6f7f9;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 .top-rated-section {
@@ -106,12 +110,14 @@
 
 .top-rated-card img {
   width: 100%;
-  height: 200px;
+  height: min(220px, 35vw);
+  aspect-ratio: 1;
   object-fit: contain;
   background: #f6f7f9;
   border-bottom: 1px solid #ececec;
-  padding: 1.5rem 1rem 1rem 1rem;
+  padding: 1.5rem;
   margin-bottom: 0.5rem;
+  border-radius: 0.75rem 0.75rem 0 0;
 }
 
 .top-rated-card-info {

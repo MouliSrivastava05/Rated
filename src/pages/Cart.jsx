@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCartWishlist } from '../context/CartWishlistContext';
 import {
   FaPlusCircle,
@@ -8,6 +9,7 @@ import {
 import './Cart.css';
 
 function Cart() {
+  const navigate = useNavigate();
   const { cartItems, removeFromCart, updateQuantity } = useCartWishlist();
 
   const handleUpdateQuantity = (item, quantity) => {
@@ -30,7 +32,7 @@ function Cart() {
             <div className="cart-items-list">
               {cartItems.map(item => (
                 <div key={item.id} className="cart-item">
-                  <img src={item.image} alt={item.title} className="cart-item-image" />
+                  <img src={item.image} alt={item.title} className="cart-item-image" loading="lazy" decoding="async" />
                   <div className="cart-item-details">
                     <h2 className="cart-item-title">{item.title}</h2>
                     <p className="cart-item-price">${item.price.toFixed(2)}</p>
@@ -56,7 +58,12 @@ function Cart() {
                 <span>Total:</span>
                 <span>${calculateTotal().toFixed(2)}</span>
               </div>
-              <button className="checkout-button">Proceed to Checkout</button>
+              <button 
+                className="checkout-button"
+                onClick={() => navigate('/checkout')}
+              >
+                Proceed to Checkout
+              </button>
             </div>
           </div>
         )

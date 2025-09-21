@@ -15,9 +15,11 @@ const Hero = () => {
                 </div>
                 <div className="hero-image-container">
                     <img 
-                        src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80" 
+                        src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80" 
                         alt="Fashionable products" 
                         className="hero-image"
+                        loading="eager"
+                        fetchpriority="high"
                     />
                 </div>
             </div>

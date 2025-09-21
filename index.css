@@ -1,3 +1,6 @@
+/* Import global image styles */
+@import './src/styles/image-styles.css';
+
 body {
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   margin: 0;

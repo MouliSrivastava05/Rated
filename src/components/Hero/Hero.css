@@ -79,8 +79,9 @@
 }
 
 .hero-image {
-  width: 350px;
-  height: 350px;
+  width: min(100%, 400px);
+  height: min(100%, 400px);
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0 8px 32px rgba(35,39,47,0.10), 0 2px 8px rgba(0,0,0,0.06);
@@ -103,7 +104,8 @@
     justify-content: center;
   }
   .hero-image {
-    width: 220px;
-    height: 220px;
+    width: min(100%, 280px);
+    height: min(100%, 280px);
+    aspect-ratio: 1;
   }
 }

@@ -1,0 +1,135 @@
+/* Global Image Styles for Consistent Sizing and Responsiveness */
+
+/* Base image styles */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Product image containers */
+.product-image-container,
+.prod-image-container,
+.new-arrivals-card img,
+.top-rated-card img,
+.wishlist-item-image,
+.cart-item-image {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-image-container:hover,
+.prod-image-container:hover,
+.new-arrivals-card:hover img,
+.top-rated-card:hover img {
+  transform: scale(1.02);
+}
+
+/* Responsive image sizing utilities */
+.img-responsive {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.img-contain {
+  object-fit: contain;
+  background: #f8f9fa;
+  padding: 0.5rem;
+}
+
+.img-square {
+  aspect-ratio: 1;
+}
+
+.img-rounded {
+  border-radius: 0.5rem;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+/* Image loading states */
+.img-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive breakpoints for images */
+@media (max-width: 768px) {
+  .hero-image {
+    width: min(100%, 250px) !important;
+    height: min(100%, 250px) !important;
+  }
+  
+  .product-image,
+  .prod-image {
+    padding: 1rem !important;
+  }
+  
+  .cart-item-image {
+    width: min(4rem, 12vw) !important;
+    height: min(4rem, 12vw) !important;
+  }
+  
+  .suggestion-image {
+    width: min(2rem, 5vw) !important;
+    height: min(2rem, 5vw) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image {
+    width: min(100%, 200px) !important;
+    height: min(100%, 200px) !important;
+  }
+  
+  .new-arrivals-card img,
+  .top-rated-card img {
+    height: min(180px, 40vw) !important;
+  }
+  
+  .wishlist-item-image {
+    height: min(160px, 45vw) !important;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .product-image,
+  .prod-image,
+  .new-arrivals-card img,
+  .top-rated-card img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Accessibility improvements */
+img[alt] {
+  /* Ensure images with alt text are properly styled */
+}
+
+img:not([alt]) {
+  /* Style for images without alt text - consider adding alt attributes */
+  border: 2px dashed #ff6b6b;
+}
+
+/* Print styles */
+@media print {
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+}
