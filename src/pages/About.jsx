@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { 
   FaShieldAlt, 
   FaStar, 
@@ -265,14 +266,14 @@ const About = () => {
           <h2>Ready to Make Smarter Purchases?</h2>
           <p>Join thousands of users who trust Rated for honest product reviews</p>
           <div className="cta-buttons">
-            <button className="cta-primary">
+            <Link to="/products" className="cta-primary">
               <FaShoppingCart className="button-icon" />
               Start Shopping
-            </button>
-            <button className="cta-secondary">
+            </Link>
+            <Link to="/signup" className="cta-secondary">
               <FaUsers className="button-icon" />
               Join Community
-            </button>
+            </Link>
           </div>
         </div>
       </section>
