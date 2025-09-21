@@ -13,33 +13,36 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Wishlist from './pages/Wishlist';
 import { CartWishlistProvider } from './context/CartWishlistContext';
+import { AuthProvider } from './context/AuthContext';
 import './App.css';
 
 function App() {
 
   return (
-    <CartWishlistProvider>
-      <Router>
-        <div className="app-layout">
-          <Navbar />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/products" element={<ProductListing />} />
-              <Route path="/products/:id" element={<ProductDetails />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} /> 
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </CartWishlistProvider>
+    <AuthProvider>
+      <CartWishlistProvider>
+        <Router>
+          <div className="app-layout">
+            <Navbar />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/products" element={<ProductListing />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} /> 
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </CartWishlistProvider>
+    </AuthProvider>
   );
 }
 

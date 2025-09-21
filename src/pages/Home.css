@@ -1,26 +1,36 @@
 .home-page {
-  background: #f7f8fa;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .home-section {
   width: 100%;
   max-width: 1280px;
-  margin: 0 auto 3.5rem auto;
+  margin: 0 auto 4rem auto;
   padding: 3.5rem 1.5rem 0 1.5rem;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
   border-radius: 2rem;
   box-sizing: border-box;
   position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 .home-section:not(:last-child) {
-  border-bottom: 1.5px solid #ececec;
-  box-shadow: 0 2px 12px rgba(35,39,47,0.03);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  margin-bottom: 4rem;
 }
 
 /* Section title alignment for all sections */
@@ -36,15 +46,22 @@
 .top-rated-title, .new-arrivals-title, .featured-categories-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #23272f;
+  color: #1e293b;
   letter-spacing: -0.02em;
   margin: 0;
   padding: 0;
-  border-bottom: 3px solid #3a4052;
-  display: inline-block;
-  background: linear-gradient(90deg, #23272f 60%, #3a4052 100%);
+  border-bottom: 3px solid transparent;
+  background: linear-gradient(135deg, #1e293b 0%, #3b82f6 50%, #8b5cf6 100%) border-box;
+  background-clip: padding-box, border-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.top-rated-title:hover, .new-arrivals-title:hover, .featured-categories-title:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
 }
 
 /* Remove old hero/section styles if not used */

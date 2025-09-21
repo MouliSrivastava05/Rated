@@ -14,7 +14,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirect to home on successful signup
+      navigate('/login'); // Redirect to login page after successful signup
     } catch (error) {
       setError(error.message);
     }
@@ -37,7 +37,7 @@ const Signup = () => {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.targe.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button type="submit">Sign Up</button>

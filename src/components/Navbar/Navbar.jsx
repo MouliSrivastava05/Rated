@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCartWishlist } from '../../context/CartWishlistContext';
-import { FaShoppingCart, FaHeart, FaBars, FaTimes } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
+import { FaShoppingCart, FaHeart, FaBars, FaTimes, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = () => {
   const { cartItems, likedItems } = useCartWishlist();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -14,6 +17,16 @@ const Navbar = () => {
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      closeMenu();
+      navigate('/login'); // Redirect to login page after logout
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (
@@ -43,9 +56,24 @@ const Navbar = () => {
             {likedItems.length > 0 && <span className="nav-counter">{likedItems.length}</span>}
           </Link>
         </li>
-        <li>
-          <Link to="/login" className="nav-login" onClick={closeMenu}>Login</Link>
-        </li>
+        {user ? (
+          <>
+            <li className="nav-user">
+              <FaUser className="nav-icon" />
+              <span>{user.email}</span>
+            </li>
+            <li>
+              <button onClick={handleLogout} className="nav-logout">
+                <FaSignOutAlt className="nav-icon" />
+                Logout
+              </button>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link to="/login" className="nav-login" onClick={closeMenu}>Login</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
