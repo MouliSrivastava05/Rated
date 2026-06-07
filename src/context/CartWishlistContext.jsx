@@ -7,6 +7,17 @@ export const useCartWishlist = () => useContext(CartWishlistContext);
 export const CartWishlistProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [likedItems, setLikedItems] = useState([]);
+  
+  // New UI states for redesign
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState(null);
+
+  const showConfirmation = (message) => {
+    setConfirmationMessage(message);
+    setTimeout(() => {
+      setConfirmationMessage(null);
+    }, 2000);
+  };
 
   const addToCart = (product) => {
     setCartItems(prevItems => {
@@ -19,6 +30,7 @@ export const CartWishlistProvider = ({ children }) => {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+    showConfirmation('Added to cart');
   };
 
   const removeFromCart = (productId) => {
@@ -61,9 +73,12 @@ export const CartWishlistProvider = ({ children }) => {
       updateQuantity,
       clearCart,
       toggleLike,
-      isLiked
+      isLiked,
+      isCartOpen,
+      setIsCartOpen,
+      confirmationMessage
     }}>
       {children}
     </CartWishlistContext.Provider>
   );
-}; 
+};

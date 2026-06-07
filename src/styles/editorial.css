@@ -1,0 +1,171 @@
+/* editorial.css — updated for new design system */
+/* These styles are kept for any pages using old editorial layout components */
+
+.editorial-section {
+  padding: 5rem 3rem;
+}
+
+.editorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--near-black);
+}
+
+.editorial-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.editorial-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.editorial-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.layout-left  { flex-direction: row; }
+.layout-right { flex-direction: row-reverse; }
+.layout-center { justify-content: center; gap: 6rem; }
+
+.editorial-image-wrapper {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--cream-tint);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--near-black);
+}
+
+.editorial-image-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.editorial-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  padding: 1rem;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.editorial-image-primary  { position: relative; z-index: 1; }
+.editorial-image-secondary {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  filter: contrast(1.05) saturate(0.9);
+  transform: scale(1.02);
+}
+
+.editorial-row:hover .editorial-image-primary,
+.strip-item:hover .editorial-image-primary {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.editorial-row:hover .editorial-image-secondary,
+.strip-item:hover .editorial-image-secondary {
+  opacity: 1;
+  transform: translateY(-6px);
+}
+
+.size-large  { width: 55vw; max-width: 700px; aspect-ratio: 4/5; }
+.size-medium { width: 40vw; max-width: 500px; aspect-ratio: 3/4; }
+.size-small  { width: 25vw; max-width: 350px; aspect-ratio: 1/1; }
+
+.editorial-info {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.align-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.editorial-info h3.product-title-hover {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0;
+  display: inline-block;
+  position: relative;
+}
+
+.product-title-hover::after {
+  content: '';
+  position: absolute;
+  width: 0; height: 2px;
+  bottom: 0.05em; left: 0;
+  background: var(--near-black);
+  transition: width 0.5s ease;
+}
+
+.editorial-row:hover .product-title-hover::after,
+.strip-item:hover .product-title-hover::after {
+  width: 100%;
+}
+
+/* ── Collection page strip (ProductListing legacy support) ── */
+.strip-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 2px solid var(--near-black);
+  background: var(--cream-tint);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.25s ease;
+}
+
+.strip-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 6px 6px 0 var(--near-black);
+}
+
+@media (max-width: 768px) {
+  .editorial-section { padding: 3.5rem 1.25rem; }
+
+  .editorial-row,
+  .layout-left,
+  .layout-right,
+  .layout-center {
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .size-large,
+  .size-medium,
+  .size-small {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .editorial-info,
+  .align-right {
+    align-items: flex-start;
+    text-align: left;
+    max-width: 100%;
+  }
+}
