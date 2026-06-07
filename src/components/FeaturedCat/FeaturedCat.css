@@ -1,55 +1,52 @@
-.featured-categories-section { /* Corrected selector */
-  padding: 3rem 1.5rem;
-  max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
+.featcat-section {
+  background: var(--mustard);
+  padding: 5rem 3rem;
+  border-bottom: 2px solid var(--near-black);
 }
 
-.featured-categories-section h2 { /* Corrected selector */
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f2937;
+.featcat-header {
   margin-bottom: 2.5rem;
 }
 
-.featured-categories-section ul { /* Corrected selector */
-  list-style: none;
-  margin: 0;
-  display: grid;
-  gap: 1.25rem;
+.featcat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
 }
 
-.featured-categories-section li { /* Corrected selector */
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.featcat-pill {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--near-black);
+  background: var(--pill-bg, #F5B8CC);
+  color: var(--pill-color, #1A1209);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s ease;
+  line-height: 1;
 }
 
-
-.category-item {
-  display: block;
-  width: 100%;
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 0.75rem;
-  padding: 1.5rem 1.25rem;
-  text-align: center;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #374151;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.featcat-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0 var(--near-black);
 }
 
-.category-item:hover {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.featcat-pill:active {
+  animation: sticker-press 0.3s ease forwards;
 }
 
-.category-item:active {
-  background-color: #e5e7eb;
-  transform: translateY(0);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+@media (max-width: 768px) {
+  .featcat-section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .featcat-pill {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+  }
 }
