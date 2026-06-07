@@ -1,270 +1,143 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaStar, FaShoppingCart, FaHeart } from 'react-icons/fa';
-import ProductFilters from '../components/ProductFilters/ProductFilters';
-import SearchBar from '../components/SearchBar/SearchBar';
-import Pagination from '../components/Pagination/Pagination';
 import { useCartWishlist } from '../context/CartWishlistContext';
+import { getProducts, CATEGORIES } from '../data/products';
 import './ProductListing.css';
-import '../pages/Home.css';
+
+const CARD_TINTS = ['#FDE8EE', '#DFF0F7', '#FAF7F0', '#FEF3C7', '#FDE8EE', '#FAF7F0', '#DFF0F7'];
+
+const BADGE_TYPES = [
+  { cls: 'badge-new',     text: 'New ★' },
+  { cls: 'badge-feature', text: 'Pick ✦' },
+  { cls: 'badge-hot',     text: 'Hot 🍦' },
+  { cls: 'badge-sale',    text: 'Sale' },
+];
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [hoveredProduct, setHoveredProduct] = useState(null);
-  
-  // Filter states
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [sortBy, setSortBy] = useState('featured');
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [searchTerm, setSearchTerm] = useState('');
-
+  const [activeCategory, setActiveCategory] = useState(null);
   const location = useLocation();
+  const { addToCart } = useCartWishlist();
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const category = params.get('category');
-    if (category) {
-      setSelectedCategory(category);
-    }
-  }, [location.search]);
-
-  // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
-
-  // Get unique categories from products
-  const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(products.map(product => product.category))];
-    return uniqueCategories;
-  }, [products]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('https://fakestoreapi.com/products');
-        if (!response.ok) throw new Error('Failed to fetch products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
+    setProducts(getProducts());
+    setLoading(false);
   }, []);
 
-  // Filter and sort products
-  const filteredAndSortedProducts = useMemo(() => {
-    let result = [...products];
+  const params = new URLSearchParams(location.search);
+  const urlCategory = params.get('category');
 
-    // Apply search filter
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      result = result.filter(product => 
-        product.title.toLowerCase().includes(searchLower) ||
-        product.description.toLowerCase().includes(searchLower) ||
-        product.category.toLowerCase().includes(searchLower)
-      );
-    }
-
-    // Apply category filter
-    if (selectedCategory) {
-      result = result.filter(product => product.category === selectedCategory);
-    }
-
-    // Apply price range filter
-    if (priceRange.min !== '') {
-      result = result.filter(product => product.price >= Number(priceRange.min));
-    }
-    if (priceRange.max !== '') {
-      result = result.filter(product => product.price <= Number(priceRange.max));
-    }
-
-    // Apply sorting
-    switch (sortBy) {
-      case 'price-low':
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-high':
-        result.sort((a, b) => b.price - a.price);
-        break;
-      case 'rating':
-        result.sort((a, b) => (b.rating?.rate || 0) - (a.rating?.rate || 0));
-        break;
-      case 'newest':
-        result.sort((a, b) => b.id - a.id);
-        break;
-      default:
-        // featured - no sorting needed
-        break;
-    }
-
-    return result;
-  }, [products, selectedCategory, sortBy, priceRange, searchTerm]);
-
-  // Get current page items
-  const currentItems = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return filteredAndSortedProducts.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredAndSortedProducts, currentPage, itemsPerPage]);
-
-  // Reset to first page when filters change
   useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategory, sortBy, priceRange, searchTerm, itemsPerPage]);
+    setActiveCategory(urlCategory);
+  }, [urlCategory]);
 
-  const handleClearFilters = () => {
-    setSelectedCategory('');
-    setSortBy('featured');
-    setPriceRange({ min: '', max: '' });
-    setSearchTerm('');
-    setCurrentPage(1);
+  const filteredProducts = useMemo(() => {
+    if (!activeCategory) return products;
+    return products.filter(p => p.category === activeCategory);
+  }, [products, activeCategory]);
+
+  const handleQuickAdd = (e, product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product);
+    const btn = e.currentTarget;
+    btn.classList.add('pressed');
+    setTimeout(() => btn.classList.remove('pressed'), 300);
   };
 
-  // Use cart and wishlist context
-  const { addToCart, toggleLike, isLiked } = useCartWishlist();
+  const handleFilter = (e, cat) => {
+    setActiveCategory(cat === activeCategory ? null : cat);
+    const btn = e.currentTarget;
+    btn.classList.add('filter-pressed');
+    setTimeout(() => btn.classList.remove('filter-pressed'), 350);
+  };
 
   if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-      </div>
-    );
+    return <div className="pl-loading"><span>Loading Collection...</span></div>;
   }
 
-  if (error) {
-    return (
-      <div className="error-container">
-        <div className="error-content">
-          <h2 className="error-title">Error</h2>
-          <p className="error-message">{error}</p>
-        </div>
-      </div>
-    );
-  }
+  const buildRows = (items) => {
+    const rows = [];
+    let i = 0;
+    let rowIndex = 0;
+    while (i < items.length) {
+      if (rowIndex % 2 === 0) {
+        rows.push({ type: 'A', items: items.slice(i, i + 3) });
+        i += 3;
+      } else {
+        rows.push({ type: 'B', items: items.slice(i, i + 3) });
+        i += 3;
+      }
+      rowIndex++;
+    }
+    return rows;
+  };
+
+  const rows = buildRows(filteredProducts);
 
   return (
-    <div className="home-section">
-      <div className="product-listing-container">
-        <div className="product-listing-header">
-          <h1 className="top-rated-title">Our Products</h1>
-          <p className="product-listing-subtitle">Discover our collection of high-quality products</p>
-        </div>
+    <div className="pl-page">
+      <div className="pl-header">
+        <h1 className="pl-title">The Collection</h1>
+      </div>
 
-        <div className="product-listing-grid">
-          {/* Filters Sidebar */}
-          <div className="filters-sidebar">
-            <div className="search-container">
-              <SearchBar onSearch={setSearchTerm} products={products} />
-            </div>
-            <ProductFilters
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-              sortBy={sortBy}
-              onSortChange={setSortBy}
-              priceRange={priceRange}
-              onPriceRangeChange={setPriceRange}
-              onClearFilters={handleClearFilters}
-            />
-          </div>
+      <div className="pl-filters">
+        <button
+          className={`pl-filter-btn ${!activeCategory ? 'active' : ''}`}
+          onClick={(e) => handleFilter(e, null)}
+        >
+          All
+        </button>
+        {CATEGORIES.map(cat => (
+          <button
+            key={cat}
+            className={`pl-filter-btn ${activeCategory === cat ? 'active' : ''}`}
+            onClick={(e) => handleFilter(e, cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-          {/* Products Grid */}
-          <div className="products-grid-container">
-            <div className="products-count">
-              <p className="products-count-text">
-                Showing {filteredAndSortedProducts.length} products
-                {searchTerm && ` for "${searchTerm}"`}
-              </p>
-            </div>
+      <div className="pl-rows">
+        {rows.map((row, rowIdx) => (
+          <div key={rowIdx} className={`pl-row pl-row-${row.type}`}>
+            {row.items.map((product, itemIdx) => {
+              const tint  = CARD_TINTS[(rowIdx * 3 + itemIdx) % CARD_TINTS.length];
+              const badge = BADGE_TYPES[(rowIdx * 3 + itemIdx) % BADGE_TYPES.length];
+              const isLarge = row.type === 'A' && itemIdx === 0;
 
-            <div className="products-grid">
-              {currentItems.map(product => (
-                <div
+              return (
+                <Link
                   key={product.id}
-                  className="product-card"
-                  onMouseEnter={() => setHoveredProduct(product.id)}
-                  onMouseLeave={() => setHoveredProduct(null)}
+                  to={`/products/${product.id}`}
+                  className={`pl-card ${isLarge ? 'pl-card-large' : 'pl-card-small'}`}
                 >
-                  <div className="product-image-container">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="product-image"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className={`product-actions ${hoveredProduct === product.id ? 'visible' : ''}`}>
-                      <button className="action-button" onClick={() => toggleLike(product)}>
-                        <FaHeart className={`action-icon ${isLiked(product.id) ? 'liked' : ''}`} />
-                      </button>
-                      <button className="action-button" onClick={() => addToCart(product)}>
-                        <FaShoppingCart className="action-icon" />
-                      </button>
-                    </div>
+                  {/* Badge — absolutely positioned, never shifts layout */}
+                  <span className={`pl-badge badge-sticker ${badge.cls}`}>{badge.text}</span>
+
+                  {/* Image zone — colored background lives HERE only */}
+                  <div className="pl-card-image-wrap" style={{ background: tint }}>
+                    <img src={product.image} alt={product.title} className="pl-card-image" />
+                    <button
+                      className="na-quick-add"
+                      onClick={(e) => handleQuickAdd(e, product)}
+                    >
+                      + Add to Bag
+                    </button>
                   </div>
 
-                  <div className="product-info">
-                    <h2 className="product-title">
-                      {product.title}
-                    </h2>
-                    
-                    <div className="product-rating">
-                      <div className="rating-stars">
-                        {[...Array(5)].map((_, i) => (
-                          <FaStar
-                            key={i}
-                            className={`star ${i < Math.round(product.rating?.rate || 0) ? 'filled' : ''}`}
-                          />
-                        ))}
-                      </div>
-                      <span className="rating-count">
-                        ({product.rating?.count || 0})
-                      </span>
-                    </div>
-
-                    <div className="product-footer">
-                      <span className="product-price">
-                        ${product.price.toFixed(2)}
-                      </span>
-                      <Link
-                        to={`/products/${product.id}`}
-                        className="view-details-button"
-                      >
-                        View Details
-                      </Link>
-                    </div>
+                  {/* Info strip — always cream, always 80px */}
+                  <div className="pl-card-info">
+                    <p className="pl-card-title">{product.title}</p>
+                    <p className="pl-card-price">${product.price.toFixed(2)}</p>
                   </div>
-                </div>
-              ))}
-            </div>
-
-            {filteredAndSortedProducts.length === 0 ? (
-              <div className="no-products">
-                <p className="no-products-text">No products found matching your criteria.</p>
-                <button
-                  onClick={handleClearFilters}
-                  className="clear-filters-button"
-                >
-                  Clear all filters
-                </button>
-              </div>
-            ) : (
-              <Pagination
-                currentPage={currentPage}
-                totalItems={filteredAndSortedProducts.length}
-                itemsPerPage={itemsPerPage}
-                onPageChange={setCurrentPage}
-                onItemsPerPageChange={setItemsPerPage}
-              />
-            )}
+                </Link>
+              );
+            })}
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

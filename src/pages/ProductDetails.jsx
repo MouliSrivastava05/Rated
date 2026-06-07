@@ -1,126 +1,136 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ProdInfo from "../components/ProdInfo/ProdInfo";
-import RatingSummary from "../components/RatingSummary/RatingSummary";
-import RatingFilter from "../components/RatingFilter/RatingFilter";
-import ReviewForm from "../components/ReviewForm/ReviewForm";
-import UserReviewsList from "../components/UserReviewsList/UserReviewsList";
+import { useCartWishlist } from "../context/CartWishlistContext";
+import { getProductById, getProducts } from "../data/products";
 import './ProductDetails.css';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [reviews, setReviews] = useState([]);
-  const [filteredReviews, setFilteredReviews] = useState([]);
-  const [activeFilter, setActiveFilter] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+  const [reviewsOpen, setReviewsOpen] = useState(false);
+
+  const { addToCart, toggleLike, isLiked } = useCartWishlist();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-        if (!response.ok) throw new Error('Failed to fetch product');
-        const data = await response.json();
-        setProduct(data);
-
-        setReviews([
-          {
-            name: "John Doe",
-            rating: 5,
-            review: "Excellent product! The quality is outstanding and it exceeded my expectations.",
-            date: new Date(2024, 2, 15)
-          },
-          {
-            name: "Jane Smith",
-            rating: 4,
-            review: "Very good product, but shipping took longer than expected.",
-            date: new Date(2024, 2, 10)
-          }
-        ]);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProduct();
+    const found = getProductById(id);
+    setProduct(found);
+    setIsLoading(false);
   }, [id]);
 
   useEffect(() => {
-    if (activeFilter) {
-      setFilteredReviews(reviews.filter(review => review.rating === activeFilter));
-    } else {
-      setFilteredReviews(reviews);
+    if (!isLoading && product) {
+      const el = document.querySelector('.pdp-info-sticky');
+      if (el) el.classList.add('fade-up-enter-active');
     }
-  }, [reviews, activeFilter]);
+  }, [isLoading, product]);
 
-  const handleReviewSubmit = (review) => {
-    const newReview = {
-      ...review,
-      date: new Date()
-    };
-    setReviews([newReview, ...reviews]);
-  };
-
-  const handleFilter = (rating) => {
-    setActiveFilter(rating);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-      </div>
-    );
+  if (isLoading || !product) {
+    return <div className="pdp-loading">Loading...</div>;
   }
 
-  if (error) {
-    return (
-      <div className="error-container">
-        <div className="error-content">
-          <h2 className="error-title">Error</h2>
-          <p>{error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  const averageRating = reviews.length > 0
-    ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
-    : 0;
-
-  const reviewCounts = reviews.reduce((acc, review) => {
-    acc[review.rating] = (acc[review.rating] || 0) + 1;
-    return acc;
-  }, { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
+  // Related products: same category, exclude current
+  const related = getProducts(product.category)
+    .filter(p => p.id !== product.id)
+    .slice(0, 3);
 
   return (
-    <div className="product-details-container">
-      <div className="product-details-grid">
-
-        <div className="product-info-column">
-          {product && <ProdInfo product={product} />}
+    <div className="pdp-container">
+      <div className="pdp-split">
+        <div className="pdp-images-column">
+          <div className="pdp-image-wrapper">
+            <img src={product.image} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div className="pdp-image-wrapper">
+            <img src={product.image} alt={`${product.title} detail`} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.1)' }} />
+          </div>
         </div>
 
-        <div className="reviews-column">
-          <RatingSummary rating={averageRating} totalReviews={reviews.length} reviewCounts={reviewCounts} />
-          <RatingFilter onFilter={handleFilter} activeFilter={activeFilter} />
+        <div className="pdp-info-column">
+          <div className="pdp-info-sticky fade-up">
+            <div className="pdp-breadcrumbs font-sans text-label">
+              <span style={{ textTransform: 'capitalize' }}>{product.category}</span>
+            </div>
+
+            <h1 className="pdp-title">{product.title}</h1>
+            <p className="pdp-price font-sans text-md">${product.price.toFixed(2)}</p>
+
+            {/* Rating */}
+            <div className="pdp-rating">
+              {'★'.repeat(Math.round(product.rating?.rate || 0))}{'☆'.repeat(5 - Math.round(product.rating?.rate || 0))}
+              <span className="pdp-rating-count"> ({product.rating?.count} reviews)</span>
+            </div>
+
+            <div className="pdp-description font-sans text-sm">
+              <p>{product.description}</p>
+            </div>
+
+            <div className="pdp-accordion">
+              <button
+                className="accordion-toggle font-sans text-sm"
+                onClick={() => setSizeGuideOpen(!sizeGuideOpen)}
+              >
+                <span>Size & Fit</span>
+                <span className="accordion-icon">{sizeGuideOpen ? '−' : '+'}</span>
+              </button>
+              {sizeGuideOpen && (
+                <div className="accordion-content font-sans text-sm">
+                  <p>Fits true to size. Take your normal size.</p>
+                  <p>Model is 188cm/6&apos;2&quot; and wears a size M.</p>
+                </div>
+              )}
+            </div>
+
+            <div className="pdp-actions">
+              <button className="pdp-add-to-cart font-sans text-sm btn-primary" onClick={() => addToCart(product)}>
+                Add to Bag
+              </button>
+              <button
+                className={`pdp-wishlist font-sans text-sm ${isLiked(product.id) ? 'liked' : ''}`}
+                onClick={() => toggleLike(product)}
+              >
+                {isLiked(product.id) ? '♥ Saved' : '♡ Save'}
+              </button>
+            </div>
+
+            <div className="pdp-accordion pdp-reviews">
+              <button
+                className="accordion-toggle font-sans text-sm"
+                onClick={() => setReviewsOpen(!reviewsOpen)}
+              >
+                <span>Reviews ({product.rating?.count || 0})</span>
+                <span className="accordion-icon">{reviewsOpen ? '−' : '+'}</span>
+              </button>
+              {reviewsOpen && (
+                <div className="accordion-content font-sans text-sm">
+                  <p>{product.rating?.rate} out of 5 — based on {product.rating?.count} reviews.</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="reviews-section">
-        <div className="reviews-grid">
-          <div className="product-info-column">
-            <UserReviewsList reviews={filteredReviews} />
-          </div>
-          <div>
-            <ReviewForm onSubmit={handleReviewSubmit} />
+      {/* Related products */}
+      {related.length > 0 && (
+        <div className="pdp-related">
+          <h2 className="pdp-related-title">You Might Also Like</h2>
+          <div className="pdp-related-grid">
+            {related.map(p => (
+              <a key={p.id} href={`/products/${p.id}`} className="pdp-related-card">
+                <div className="pdp-related-img-wrap">
+                  <img src={p.image} alt={p.title} />
+                </div>
+                <div className="pdp-related-info">
+                  <p className="pdp-related-name">{p.title}</p>
+                  <p className="pdp-related-price">${p.price.toFixed(2)}</p>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
